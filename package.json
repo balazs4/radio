@@ -1,0 +1,30 @@
+{
+  "name": "radio",
+  "version": "0.0.1",
+  "description": "Radio streaming",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/balazs4/radio.git"
+  },
+  "keywords": [
+    "radio",
+    "node",
+    "stream"
+  ],
+  "author": "balazs4",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/balazs4/radio/issues"
+  },
+  "homepage": "https://github.com/balazs4/radio#readme",
+  "dependencies": {
+    "events": "^1.0.2",
+    "icy": "^2.0.0",
+    "lame": "^1.2.2",
+    "speaker": "^0.2.5"
+  }
+}
