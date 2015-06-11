@@ -23,8 +23,10 @@
   "homepage": "https://github.com/balazs4/radio#readme",
   "dependencies": {
     "events": "^1.0.2",
+    "express": "^4.12.4",
     "icy": "^2.0.0",
     "lame": "^1.2.2",
+    "lodash": "^3.9.3",
     "speaker": "^0.2.5"
   },
   "devDependencies": {

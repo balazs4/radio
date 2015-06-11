@@ -12,8 +12,7 @@ radio.on('playing', function(info) {
 });
 
 radio.on('songchanged', function(info) {
-	var song = songparser(info);
-    console.log(JSON.stringify(song));
+    console.log(JSON.stringify(songparser(info)));
 });
 
 radio.play();
