@@ -1,18 +1,19 @@
 var Radio = require('./lib/radio');
+var channels = require('./lib/channels');
+var songparser = require('./lib/songparser');
 
-var radio = new Radio("http://205.164.62.20:8035");
+var channel = channels[0];
+var radio = new Radio(channel.url);
 
 
-radio.on('connected', function(name) {
-    console.log("[ON AIR] " + name);
+radio.on('playing', function(info) {
+    console.log("[ON AIR] " + info.name);
+    channel["name"] = info.name;
 });
 
-radio.on('songchanged', function(metadata) {
-    console.log("Now playing '" + metadata.StreamTitle + "'");
+radio.on('songchanged', function(info) {
+	var song = songparser(info);
+    console.log(JSON.stringify(song));
 });
 
 radio.play();
-
-setTimeout(function() {
-    radio.stop();
-}, 3000);
