@@ -26,5 +26,9 @@
     "icy": "^2.0.0",
     "lame": "^1.2.2",
     "speaker": "^0.2.5"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-load-plugins": "^1.0.0-rc.1"
   }
 }
