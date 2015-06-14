@@ -4,7 +4,7 @@ var _ = require('lodash');
 var Radio = require('../lib/radio');
 var channels = require('../lib/channels');
 var songparser = require('../lib/songparser');
-var notifier = require('../lib/')
+var notifier = require('../lib/notifier')
 
 
 var radio = null;
@@ -18,10 +18,11 @@ var stop = function(rdio) {
 
 var router = function(app) {
 
-    app.get('/stop', function(req, res)) {
+    app.get('/stop', function(req, res) {
         stop(radio);
+        console.log("Stop");
         res.end();
-    };
+    });
 
     app.get('/channel', function(req, res) {
         res.json(channels);
@@ -42,7 +43,9 @@ var router = function(app) {
             res.end();
         });
         radio.on('songchanged', function(info) {
-            console.log(JSON.stringify(songparser(info)));
+            var song = songparser(info);
+            console.log(JSON.stringify(song));
+            notifier(song);
         });
 
         radio.play();
