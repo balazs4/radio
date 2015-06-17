@@ -1,5 +1,4 @@
 var path = require('path');
-var _ = require('lodash');
 
 var Radio = require('../lib/radio');
 var channels = require('../lib/channels');
@@ -25,16 +24,13 @@ var router = function(app) {
     });
 
     app.get('/channel', function(req, res) {
-        res.json(channels);
+        res.json(channels());
     });
 
     app.get('/channel/:id', function(req, res) {
         var id = req.params.id;
-
-
-        var channel = _.find(channels, function(ch) {
-            return ch._id == id;
-        });
+        
+        var channel = channels(id);
 
         stop(radio);
 
