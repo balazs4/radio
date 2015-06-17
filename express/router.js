@@ -1,4 +1,5 @@
 var path = require('path');
+var base64 = require('base64-img');
 
 var Radio = require('../lib/radio');
 var channels = require('../lib/channels');
@@ -29,7 +30,7 @@ var router = function(app) {
 
     app.get('/channel/:id', function(req, res) {
         var id = req.params.id;
-        
+
         var channel = channels(id);
 
         stop(radio);
@@ -40,8 +41,14 @@ var router = function(app) {
         });
         radio.on('songchanged', function(info) {
             var song = songparser(info);
+
             console.log(JSON.stringify(song));
-            notifier(song);
+
+            base64.requestBase64(channel.cover, function(err, r, data) {
+                song["cover"] = data;
+                notifier(song);
+            });
+            
         });
 
         radio.play();
