@@ -29,7 +29,7 @@
     "lame": "^1.2.2",
     "lodash": "^3.9.3",
     "request": "^2.57.0",
-    "speaker": "^0.2.5"
+    "speaker": "^0.2.6"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
