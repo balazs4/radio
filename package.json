@@ -4,7 +4,7 @@
   "description": "Radio streaming",
   "main": "express/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+	"start" : "node express/index.js"
   },
   "repository": {
     "type": "git",
@@ -22,17 +22,17 @@
   },
   "homepage": "https://github.com/balazs4/radio#readme",
   "dependencies": {
-    "base64-img": "^1.0.3",
-    "events": "^1.0.2",
-    "express": "^4.12.4",
-    "icy": "^2.0.0",
-    "lame": "^1.2.2",
-    "lodash": "^3.9.3",
-    "request": "^2.57.0",
-    "speaker": "^0.2.6"
+    "base64-img": "*",
+    "events": "*",
+    "express": "*",
+    "icy": "*",
+    "lame": "*",
+    "lodash": "*",
+    "request": "*",
+    "speaker": "*"
   },
   "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-load-plugins": "^1.0.0-rc.1"
+    "gulp": "*",
+    "gulp-load-plugins": "*"
   }
 }
