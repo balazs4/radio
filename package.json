@@ -4,7 +4,7 @@
   "description": "Radio streaming",
   "main": "express/index.js",
   "scripts": {
-	"start" : "node express/index.js"
+    "start": "node express/index.js"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,19 @@
   },
   "devDependencies": {
     "gulp": "*",
-    "gulp-load-plugins": "*"
+    "gulp-load-plugins": "*",
+    "jspm": "^0.16.19",
+    "lite-server": "^1.3.1"
+  },
+  "jspm": {
+    "directories": {
+      "packages": "express/view/jspm_packages"
+    },
+    "configFile": "express/view/config.js",
+    "dependencies": {},
+    "devDependencies": {
+      "traceur": "github:jmcriffey/bower-traceur@0.0.93",
+      "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.93"
+    }
   }
 }
