@@ -7,5 +7,17 @@
     "type": "git"
   },
   "author": "balazs4 <balazs4web@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "icy": "^2.1.0",
+    "lame": "^1.2.4",
+    "speaker": "^0.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
 }
