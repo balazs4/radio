@@ -15,7 +15,7 @@
     "express": "^4.14.0",
     "icy": "^2.1.0",
     "lame": "^1.2.4",
-    "rxjs": "^5.0.0-rc.2",
+    "rxjs": "*",
     "speaker": "^0.3.0",
     "stream-to-observable": "^0.2.0"
   },
