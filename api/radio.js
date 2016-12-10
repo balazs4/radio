@@ -1,6 +1,7 @@
 const radio = require('express').Router();
-const player$ = require('../lib/player');
 const rx = require('rxjs');
+const {post} = require('axios');
+const player$ = require('../lib/player');
 
 const channels = [
     "http://87.230.53.43:7000",
@@ -19,8 +20,11 @@ radio.get('/:id', (req, res) => res.json(req['channel']));
 radio.mkactivity('/:id', (req, res) => {
     stream.unsubscribe();
     stream = player$(req['channel'])
-        .retry(3)
-        .subscribe(song => console.log(new Date().toString(), song));
+        .do(song => console.log(song))
+        .subscribe(song => post('http://ultrabook:4444/radio', {
+            info: song.StreamTitle,
+            source: song.radio
+        }));
     res.sendStatus(204);
 });
 
