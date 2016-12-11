@@ -1,6 +1,8 @@
 const radio = require('express').Router();
 const rx = require('rxjs');
-const {post} = require('axios');
+const {get, post} = require('axios');
+const {encode} = require('node-base64-image');
+
 const player$ = require('../lib/player');
 
 const channels = [
@@ -20,11 +22,23 @@ radio.get('/:id', (req, res) => res.json(req['channel']));
 radio.mkactivity('/:id', (req, res) => {
     stream.unsubscribe();
     stream = player$(req['channel'])
-        .do(song => console.log(song))
-        .subscribe(song => post('http://ultrabook:4444/radio', {
-            info: song.StreamTitle,
-            source: song.radio
-        }));
+        .filter(meta => !meta.StreamTitle.startsWith('NEXT: '))
+        .do(meta => console.log(meta))
+        .map(meta => {
+            const [artist, title] = meta.StreamTitle.split(' - ');
+            return { artist, title, source: meta.radio };
+        })
+        .concatMap(song => rx.Observable
+            .of(song)
+            .map(({ artist, title }) => `${artist}+${title}`.replace(' ', '+'))
+            .switchMap(term => rx.Observable.fromPromise(get(`https://api.spotify.com/v1/search?type=track&market=DE&limit=1&q=${term}`)).map(response => response.data['tracks']['items'][0]['album']))
+            .switchMap(album => rx.Observable.bindNodeCallback(encode)(album.images[0].url, { string: true }).map(x => Object.assign({}, song, { album: album['name'], cover: x }))
+            )
+        )
+        .do(({artist, title, album}) => console.log(artist, title, album))
+        .subscribe(song => {
+            post('http://ultrabook:4444/radio', song).catch(_ => { })
+        });
     res.sendStatus(204);
 });
 
