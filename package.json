@@ -9,7 +9,8 @@
   "author": "balazs4 <balazs4web@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start" : "node index.js"
   },
   "dependencies": {
     "axios": "^0.15.3",
