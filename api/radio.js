@@ -19,7 +19,7 @@ radio.use('/:id', (req, res, next) => {
 })
 radio.get('/:id', (req, res) => res.json(req['channel']));
 
-radio.mkactivity('/:id', (req, res) => {
+radio.patch('/:id', (req, res) => {
     stream.unsubscribe();
     stream = player$(req['channel'])
         .filter(meta => !meta.StreamTitle.startsWith('NEXT: '))
@@ -35,7 +35,7 @@ radio.mkactivity('/:id', (req, res) => {
     res.sendStatus(204);
 });
 
-radio.mkactivity('/', (req, res) => {
+radio.patch('/', (req, res) => {
     stream.unsubscribe();
     res.sendStatus(204)
 })
