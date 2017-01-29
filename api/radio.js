@@ -6,9 +6,9 @@ const player$ = require('../lib/player');
 const info$ = require('../lib/info');
 
 const channels = [
-    "http://87.230.53.43:7000",
-    "http://87.230.53.43:8004",
-    "http://91.121.138.222:8000"
+    "http://85.25.43.55:80/hell.mp3",
+    "http://85.25.43.55:80/nuernberg.mp3",
+    "http://uk3.internet-radio.com:8108"
 ]
 
 let stream = rx.Observable.empty().subscribe(_ => { });
