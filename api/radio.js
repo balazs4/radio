@@ -41,5 +41,4 @@ radio.patch('/', (req, res) => {
 })
 
 radio.get('/', (req, res) => res.json(channels));
-
 module.exports = radio
