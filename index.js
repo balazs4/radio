@@ -8,7 +8,7 @@ const opmltojs = opml =>
     });
   });
 
-(async term => {
+const search = async term => {
   const opml = await request(
     `http://opml.radiotime.com/Search.ashx?query=${term}`
   );
@@ -23,5 +23,9 @@ const opmltojs = opml =>
       url: URL
     }))
     .orderByDescending(x => x.score);
-  console.log(data);
-})(process.argv[2]);
+  return data;
+};
+
+module.exports = {
+  search
+};
