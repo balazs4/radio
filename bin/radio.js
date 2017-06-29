@@ -4,7 +4,10 @@ const { search } = require('..');
 const debounce = require('debounce');
 const fuzzy = require('fuzzy');
 const inquirer = require('inquirer');
-
+inquirer.registerPrompt(
+  'autocomplete',
+  require('inquirer-autocomplete-prompt')
+);
 const searchterm = async () => {
   const arg = process.argv.slice(2).join('+');
   if (arg) {
@@ -18,21 +21,31 @@ const searchterm = async () => {
   });
   return term;
 };
+const lookup = channels => (_, input) =>
+  new Promise(resolve => {
+    resolve(
+      fuzzy
+        .filter(input === null ? '' : input, channels, {
+          extract: x => x.text
+        })
+        .map(x => ({
+          name: x.original.text,
+          value: x.original.url
+        }))
+    );
+  });
 
 (async () => {
   try {
     const term = await searchterm();
     console.log('Looking for ...', term);
-    const results = await search(term);
+    const channels = await search(term);
     const { selection } = await inquirer.prompt({
-      type: 'list',
+      type: 'autocomplete',
       name: 'selection',
       message: 'Select a channel',
-      pageSize: 32,
-      choices: results.map(x => ({
-        name: x.text,
-        value: x.url
-      }))
+      source: lookup(channels),
+      pageSize: 32
     });
     console.log(selection);
     process.exit(0);
