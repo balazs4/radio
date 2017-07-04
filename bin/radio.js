@@ -3,6 +3,7 @@ const log = require('debug')('radio');
 const { search } = require('..');
 const kifli = require('kifli');
 const fuzzy = require('fuzzy');
+const request = require('request-promise-native');
 const inquirer = require('inquirer');
 inquirer.registerPrompt(
   'autocomplete',
@@ -49,6 +50,8 @@ const lookup = channels => (_, input) =>
       pageSize: 32
     });
     log(selection);
+    const channel = await request(selection);
+    log(channel.trim());
     const client = await kifli(process.env.BROKER || 'localhost', {
       clientId: 'radio-cli'
     });
@@ -57,7 +60,7 @@ const lookup = channels => (_, input) =>
       '/jukebox/control',
       {
         command: 'loadfile',
-        args: [selection]
+        args: [channel.trim()]
       },
       { qos: 2 }
     );
