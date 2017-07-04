@@ -1,7 +1,7 @@
 #! /usr/bin/env node
-
+const log = require('debug')('radio');
 const { search } = require('..');
-const debounce = require('debounce');
+const kifli = require('kifli');
 const fuzzy = require('fuzzy');
 const inquirer = require('inquirer');
 inquirer.registerPrompt(
@@ -17,7 +17,8 @@ const searchterm = async () => {
   const { term } = await inquirer.prompt({
     type: 'input',
     name: 'term',
-    message: 'What do you want to listen?'
+    message:
+      'What do you want to listen? (type e.g. "Metalcore" or "Drum and bass")'
   });
   return term;
 };
@@ -47,7 +48,20 @@ const lookup = channels => (_, input) =>
       source: lookup(channels),
       pageSize: 32
     });
-    console.log(selection);
+    log(selection);
+    const client = await kifli(process.env.BROKER || 'localhost', {
+      clientId: 'radio-cli'
+    });
+    await client.publish('/jukebox/control', { command: 'stop' }, { qos: 2 });
+    await client.publish(
+      '/jukebox/control',
+      {
+        command: 'loadfile',
+        args: [selection]
+      },
+      { qos: 2 }
+    );
+    await client.end();
     process.exit(0);
   } catch (err) {
     console.log(err);
