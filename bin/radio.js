@@ -40,7 +40,7 @@ const lookup = channels => (_, input) =>
 (async () => {
   try {
     const term = await searchterm();
-    console.log('Looking for ...', term);
+    log('Looking for ...', term);
     const channels = await search(term);
     const { selection } = await inquirer.prompt({
       type: 'autocomplete',
@@ -52,6 +52,10 @@ const lookup = channels => (_, input) =>
     log(selection);
     const channel = await request(selection);
     log(channel.trim());
+    if (!process.env.BROKER) {
+      console.log(channel.trim());
+      process.exit(0);
+    }
     const client = await kifli(process.env.BROKER || 'localhost', {
       clientId: 'radio-cli'
     });
