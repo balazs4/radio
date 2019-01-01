@@ -1,4 +1,3 @@
-require('mini-linq-js');
 const request = require('request-promise-native');
 const opmltojs = opml =>
   new Promise(resolve => {
@@ -14,15 +13,15 @@ const search = async term => {
   );
   const json = await opmltojs(opml);
   const data = json['opml']['body']['subs']
-    .where(x => x.type === 'audio')
-    .where(x => x.item === 'station')
-    .select(({ text, URL, image, reliability = 0 }) => ({
+    .filter(x => x.type === 'audio')
+    .filter(x => x.item === 'station')
+    .map(({ text, URL, image, reliability = 0 }) => ({
       text,
       image,
       score: parseInt(reliability),
       url: URL
     }))
-    .orderByDescending(x => x.score);
+    .sort((a, b) => b.score - a.score);
   return data;
 };
 

@@ -7,15 +7,7 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "debounce": "^1.0.2",
-    "debug": "^2.6.8",
-    "fuzzy": "^0.1.3",
-    "inquirer": "^3.1.1",
-    "inquirer-autocomplete-prompt": "^0.11.0",
-    "kifli": "^1.0.0",
-    "mini-linq-js": "^1.3.2",
     "opmltojs": "^0.4.3",
-    "polka": "^0.4.0",
     "request": "^2.81.0",
     "request-promise-native": "^1.0.4"
   }
