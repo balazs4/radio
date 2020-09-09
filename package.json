@@ -1,14 +1,12 @@
 {
   "name": "radio",
   "bin": {
-    "radio": "./bin/radio.js"
+    "radio": "index.js"
   },
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "opmltojs": "^0.4.3",
-    "request": "^2.81.0",
-    "request-promise-native": "^1.0.4"
+    "opml-to-json": "0.0.3"
   }
 }
